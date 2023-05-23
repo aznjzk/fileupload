@@ -2,13 +2,16 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.sql.*" %>
 <%
+	/* 요청값 유효성 검사 */
 	if (request.getParameter("boardNo") == null){
 		response.sendRedirect(request.getContextPath() + "/boardList.jsp");
 		return;
 	}
+	// 유효성 검사 통과하면 변수에 저장
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	int boardFileNo = Integer.parseInt(request.getParameter("boardFileNo"));
 	
+	/* DB 연결 */
 	String driver = "org.mariadb.jdbc.Driver";
 	String dbUrl= "jdbc:mariadb://127.0.0.1:3306/fileUpload";
 	String dbUser = "root";
@@ -16,8 +19,7 @@
 	Class.forName(driver);
 	Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
 	
-	String sql = "SELECT b.board_no boardNo, b.board_title boardTitle, f.origin_filename originFilename, f.save_filename saveFilename, f.path path "
-			+ "FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC";
+	String sql = "SELECT b.board_no boardNo, b.board_title boardTitle, f.origin_filename originFilename, f.save_filename saveFilename, f.path path FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC";
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	ResultSet rs = stmt.executeQuery();
 	
@@ -42,7 +44,7 @@
 </style>
 </head>
 <body>
-	<h1>board & boardFile 삭제</h1>
+	<h1>board 및 boardFile 삭제</h1>
 	<form action="<%=request.getContextPath()%>/removeBoardAction.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="boardNo" value="<%=map.get("boardNo")%>">
 		<input type="hidden" name="saveFilename" value="<%=map.get("saveFilename")%>">

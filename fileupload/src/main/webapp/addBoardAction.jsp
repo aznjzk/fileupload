@@ -13,7 +13,7 @@
 	int max = 10 * 1024 * 1024;
 	// request객체를 MultipartRequest의 API를 사용할 수 있도록 랩핑 
 	// new MultipartRequest(원본request, 업로드폴더, 최대파일사이즈byte, 인코딩, 중복이름정책)
-	
+	// DefaultFileRenamePolicy() 파일 중복이름 방지
 	MultipartRequest mRequest = new MultipartRequest(request, dir, max, "utf-8", new DefaultFileRenamePolicy());
 	
 	// MultipartRequest API를 사용하여 스트림내에서 문자값을 반환받을 수 있다

@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-	<h1>board & boardFile 수정</h1>
+	<h1>board 및 boardFile 수정</h1>
 	<form action="<%=request.getContextPath()%>/modifyBoardAction.jsp"
 			method="post" enctype="multipart/form-data">
 		<input type="hidden" name="boardNo" value="<%=map.get("boardNo")%>">
